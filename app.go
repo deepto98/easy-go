@@ -37,6 +37,13 @@ func (easyGo *EasyGo) New(rootPath string) error {
 
 	easyGo.Version = version
 
+	easyGo.RootPath = rootPath
+
+	easyGo.config = Config{
+		port:     os.Getenv("PORT"),
+		renderer: os.Getenv("RENDERER"),
+	}
+
 	return nil
 }
 

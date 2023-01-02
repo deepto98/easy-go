@@ -10,6 +10,7 @@ type EasyGo struct {
 	ErrorLog *log.Logger
 	InfoLog  *log.Logger
 	RootPath string
+	config   Config
 }
 
 //Type to create config with root directory and subfolder names which will
@@ -17,4 +18,10 @@ type EasyGo struct {
 type InitPaths struct {
 	rootPath    string
 	folderNames []string
+}
+
+//Stores app config
+type Config struct {
+	port     string
+	renderer string
 }
