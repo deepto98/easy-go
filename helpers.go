@@ -13,5 +13,5 @@ func (easyGo *EasyGo) CreateDirectoryIfDoesNotExist(path string) error {
 			return err
 		}
 	}
-	return err
+	return nil
 }

@@ -33,4 +33,5 @@ func (easyGo *EasyGo) Init(paths InitPaths) error {
 			return err
 		}
 	}
+	return nil
 }
