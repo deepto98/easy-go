@@ -1,7 +1,6 @@
 package easygo
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/middleware"
@@ -25,7 +24,7 @@ func (easyGo *EasyGo) routes() http.Handler {
 
 	//------Routes------
 	mux.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "EasyGo")
+		// fmt.Fprintf(w, "EasyGo")
 	})
 	return mux
 }

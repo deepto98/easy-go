@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"cuelang.org/go/pkg/strconv"
+	"github.com/deepto98/easy-go/render"
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 )
@@ -49,6 +50,7 @@ func (easyGo *EasyGo) New(rootPath string) error {
 		port:     os.Getenv("PORT"),
 		renderer: os.Getenv("RENDERER"),
 	}
+	easyGo.Render = easyGo.createRenderer()
 
 	return nil
 }
@@ -117,4 +119,12 @@ func (easyGo *EasyGo) ListenAndServe() {
 	err := srv.ListenAndServe()
 	easyGo.ErrorLog.Fatal(err)
 
+}
+func (easyGo *EasyGo) createRenderer() *render.Render {
+	renderer := render.Render{
+		RenderingEngine: easyGo.config.renderer,
+		RootPath:        easyGo.RootPath,
+		Port:            easyGo.config.port,
+	}
+	return &renderer
 }

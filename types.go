@@ -3,6 +3,7 @@ package easygo
 import (
 	"log"
 
+	"github.com/deepto98/easy-go/render"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -16,6 +17,7 @@ type EasyGo struct {
 	RootPath string
 	config   Config
 	Routes   *chi.Mux
+	Render   *render.Render
 }
 
 //Type to create config with root directory and subfolder names which will
