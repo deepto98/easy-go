@@ -4,22 +4,33 @@ const (
 	version = "1.0.0"
 )
 
-type EasyGo struct {
-	AppName string
-	Debug   bool
-	Version string
+var folderNames = []string{
+	"handlers", "migrations", "views", "data", "public", "logs", "middleware",
 }
 
-//Creates new project
+//Creates new Go project
 func (easyGo *EasyGo) New(rootPath string) error {
+	pathConfig := InitPaths{
+		rootPath:    rootPath,
+		folderNames: folderNames,
+	}
+	err := easyGo.Init(pathConfig)
 
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 //Initializes folder structure for go project
 func (easyGo *EasyGo) Init(paths InitPaths) error {
-	rootPath := paths.rootPath
+	root := paths.rootPath
 
 	for _, path := range paths.folderNames {
-		//Todo : Add func to create folder
+		err := easyGo.CreateDirectoryIfDoesNotExist(root + "/" + path)
+
+		if err != nil {
+			return err
+		}
 	}
 }
