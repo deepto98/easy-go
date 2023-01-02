@@ -5,3 +5,4 @@
     go work init
     go work use ./app1 ./app2 (Add all the separate modules here)
 ```
+3. Convert string to another type : `easyGo.Debug = strconv.ParseBool(os.Getenv("DEBUG"))`

@@ -15,7 +15,7 @@ func initApp() *Application {
 
 	easyGoApp := &easygo.EasyGo{
 		AppName: "demo-app",
-		Debug:   true,
+		// Debug:   true,
 	}
 	err = easyGoApp.New(path)
 
@@ -23,6 +23,7 @@ func initApp() *Application {
 		log.Fatal(err)
 	}
 
+	easyGoApp.InfoLog.Println("Debug:", easyGoApp.Debug)
 	app := &Application{
 		App: easyGoApp,
 	}

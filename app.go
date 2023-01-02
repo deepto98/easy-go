@@ -1,6 +1,12 @@
 package easygo
 
-import "github.com/joho/godotenv"
+import (
+	"log"
+	"os"
+
+	"cuelang.org/go/pkg/strconv"
+	"github.com/joho/godotenv"
+)
 
 const (
 	version = "1.0.0"
@@ -16,11 +22,20 @@ func (easyGo *EasyGo) New(rootPath string) error {
 		rootPath:    rootPath,
 		folderNames: folderNames,
 	}
+
+	//Creates folders and files
 	err := easyGo.Init(pathConfig)
 
 	if err != nil {
 		return err
 	}
+
+	//Adds logging
+	easyGo.InfoLog, easyGo.ErrorLog = easyGo.InitLoggers()
+
+	easyGo.Debug, _ = strconv.ParseBool(os.Getenv("DEBUG_MODE"))
+
+	easyGo.Version = version
 
 	return nil
 }
@@ -61,4 +76,14 @@ func (easyGo *EasyGo) CheckEnvFile(path string) error {
 		return err
 	}
 	return nil
+}
+
+//Initializes custom error and info loggers
+func (easyGo *EasyGo) InitLoggers() (*log.Logger, *log.Logger) {
+	var infoLog *log.Logger
+	var errorLog *log.Logger
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+	return infoLog, errorLog
 }
