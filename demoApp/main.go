@@ -7,5 +7,6 @@ type Application struct {
 }
 
 func main() {
-	initApp()
+	easyGo := initApp()
+	easyGo.App.ListenAndServe()
 }

@@ -1,10 +1,14 @@
 package easygo
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"time"
 
 	"cuelang.org/go/pkg/strconv"
+	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 )
 
@@ -38,6 +42,8 @@ func (easyGo *EasyGo) New(rootPath string) error {
 	easyGo.Version = version
 
 	easyGo.RootPath = rootPath
+
+	easyGo.Routes = easyGo.routes().(*chi.Mux)
 
 	easyGo.config = Config{
 		port:     os.Getenv("PORT"),
@@ -93,4 +99,22 @@ func (easyGo *EasyGo) InitLoggers() (*log.Logger, *log.Logger) {
 	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	return infoLog, errorLog
+}
+
+//Starts the web server
+func (easyGo *EasyGo) ListenAndServe() {
+
+	srv := &http.Server{
+		Addr:         fmt.Sprintf(":%s", easyGo.config.port),
+		ErrorLog:     easyGo.ErrorLog,
+		Handler:      easyGo.routes(),
+		IdleTimeout:  30 * time.Second,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 600 * time.Second,
+	}
+	easyGo.InfoLog.Println("Listening on port :", easyGo.config.port)
+
+	err := srv.ListenAndServe()
+	easyGo.ErrorLog.Fatal(err)
+
 }

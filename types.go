@@ -1,6 +1,10 @@
 package easygo
 
-import "log"
+import (
+	"log"
+
+	"github.com/go-chi/chi/v5"
+)
 
 //Root type for App
 type EasyGo struct {
@@ -11,6 +15,7 @@ type EasyGo struct {
 	InfoLog  *log.Logger
 	RootPath string
 	config   Config
+	Routes   *chi.Mux
 }
 
 //Type to create config with root directory and subfolder names which will
