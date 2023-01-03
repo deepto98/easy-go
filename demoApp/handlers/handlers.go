@@ -12,7 +12,7 @@ type Handlers struct {
 }
 
 func (h *Handlers) Home(w http.ResponseWriter, r *http.Request) {
-	err := h.App.Render.RenderPage(w, r, "home", nil, nil)
+	err := h.App.Renderer.RenderPage(w, r, "home", nil, nil)
 
 	if err != nil {
 		h.App.ErrorLog.Println("error render", err)

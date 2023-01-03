@@ -1,5 +1,5 @@
 //Package to render views
-package render
+package renderer
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type Render struct {
+type Renderer struct {
 	RenderingEngine string
 	RootPath        string
 	Secure          bool
@@ -28,18 +28,18 @@ type TemplateData struct {
 	Secure          bool
 }
 
-func (render *Render) RenderPage(w http.ResponseWriter, r *http.Request, view string, variables interface{}, data interface{}) error {
-	switch strings.ToLower(render.RenderingEngine) {
+func (renderer *Renderer) RenderPage(w http.ResponseWriter, r *http.Request, view string, variables interface{}, data interface{}) error {
+	switch strings.ToLower(renderer.RenderingEngine) {
 	case "go-templates":
-		return render.GoPage(w, r, view, data)
+		return renderer.RenderPageFromGoTemplate(w, r, view, data)
 	case "jet":
 	}
 	return nil
 }
 
 //Renders html pages created as Go templates
-func (render *Render) GoPage(w http.ResponseWriter, r *http.Request, view string, data interface{}) error {
-	template, err := template.ParseFiles(fmt.Sprintf("%s/views/%s.page.html", render.RootPath, view))
+func (renderer *Renderer) RenderPageFromGoTemplate(w http.ResponseWriter, r *http.Request, view string, data interface{}) error {
+	template, err := template.ParseFiles(fmt.Sprintf("%s/views/%s.page.html", renderer.RootPath, view))
 
 	if err != nil {
 		return err
