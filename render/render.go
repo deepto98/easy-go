@@ -37,8 +37,9 @@ func (render *Render) RenderPage(w http.ResponseWriter, r *http.Request, view st
 	return nil
 }
 
+//Renders html pages created as Go templates
 func (render *Render) GoPage(w http.ResponseWriter, r *http.Request, view string, data interface{}) error {
-	template, err := template.ParseFiles(fmt.Sprintf("%s/views/%s.page.html"), render.RootPath, view)
+	template, err := template.ParseFiles(fmt.Sprintf("%s/views/%s.page.html", render.RootPath, view))
 
 	if err != nil {
 		return err

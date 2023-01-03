@@ -1,9 +1,14 @@
 package main
 
-import easygo "github.com/deepto98/easy-go"
+import (
+	"demo/handlers"
+
+	easygo "github.com/deepto98/easy-go"
+)
 
 type Application struct {
-	App *easygo.EasyGo
+	App      *easygo.EasyGo
+	Handlers *handlers.Handlers
 }
 
 func main() {

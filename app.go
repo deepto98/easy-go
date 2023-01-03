@@ -109,7 +109,7 @@ func (easyGo *EasyGo) ListenAndServe() {
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%s", easyGo.config.port),
 		ErrorLog:     easyGo.ErrorLog,
-		Handler:      easyGo.routes(),
+		Handler:      easyGo.Routes,
 		IdleTimeout:  30 * time.Second,
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 600 * time.Second,

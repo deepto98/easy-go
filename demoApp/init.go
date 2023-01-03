@@ -1,6 +1,7 @@
 package main
 
 import (
+	"demo/handlers"
 	"log"
 	"os"
 
@@ -23,9 +24,16 @@ func initApp() *Application {
 		log.Fatal(err)
 	}
 
-	easyGoApp.InfoLog.Println("Debug:", easyGoApp.Debug)
-	app := &Application{
+	handlers := &handlers.Handlers{
 		App: easyGoApp,
 	}
+
+	app := &Application{
+		App:      easyGoApp,
+		Handlers: handlers,
+	}
+	app.App.Routes = app.routes()
+	easyGoApp.InfoLog.Println("Debug:", easyGoApp.Debug)
+
 	return app
 }
